@@ -61,13 +61,22 @@ m3a     vdd     vya     vouta   vss     nmos114         (W3)   (L3)
 mb3a    vouta   vbiasn  vss     vss     nmos114         (WB3)   (LB3)  
 
 *** B Side ***
-
+*NAME D G S B MODEL WIDTH LENGTH
+M1b vxb 0 iinb vss nmos114 [WIDTH1] [LENGTH1]
+Mbias-1b iinb vbiasn vss vss nmos114 [WIDTHBIAS-1B] [LENGTHBIAS-1B]
+ML-1b vx vbiasp vdd vdd pmos114 [WIDTHL-1B] [LENGTHL-1B]
+ML-2b vdd vdd vy vss nmos114 [WIDTHL-2B] [LENGTHL-2B]
+M2b vy vx vz vss nmos114 [WIDTHBIAS2B] [LENGTH2B]
+Mbias-2b vz vbiasn vss vss nmos114 [WIDTHBIAS-2B] [LENGTHBIAS-2B]
+M3b vdd vy voutb vss nmos114 [WIDTH3B] [LENGTH3B]
+Mbias-3b voutb vbiasn vss vss nmos114 [WIDTHBIAS-3B] [LENGTHBIAS-3B]
 
 *** Current Bias ***
 
 
 *** Your Bias Circuitry here ***
-
+vbiasn vbiasn 0 [VOLTAGE]
+vbiasp vbiasp 0 [VOLTAGE]
 
 * defining the analysis
 
