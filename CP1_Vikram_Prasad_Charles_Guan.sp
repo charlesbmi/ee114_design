@@ -49,8 +49,16 @@ CL	vouta		voutb		'CL'
 ***	d	g	s	b	n/pmos114	w	l
 
 *** A Side ***
-
-
+m1a     vxa     0       iina    vss     nmos114         (W1)    (L1)
+mb1a    iina    vbiasn  0       vss     nmos114         (WB1)   (LB1)
+ml1a    vxa     vbiasp  vdd     vdd     pmos114         (WL1)   (LL1)
+Rua     vdd     vxa     (RU)
+Rda     vxa     vss     (RD)
+m2a     vya     vxa     vz      vss     nmos114         (W2)    (L2)
+mb2a    vz      vbiasn  vss     vss     nmos114         (WB2)   (LB2)
+ml2a    vdd     vdd     vya     vss     nmos114         (WL2)   (LL2)
+m3a     vdd     vya     vouta   vss     nmos114         (W3)   (L3)
+mb3a    vouta   vbiasn  vss     vss     nmos114         (WB3)   (LB3)  
 
 *** B Side ***
 
