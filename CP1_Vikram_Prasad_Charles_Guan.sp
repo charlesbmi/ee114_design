@@ -45,20 +45,20 @@ Cinb	vdd	iinb 'Cin'
 RL	vouta		voutb		'RL'
 CL	vouta		voutb		'CL'
 
-*** Your Trans-impedance Amplifier here ***
+*** Trans-impedance Amplifier ***
 ***	d	g	s	b	n/pmos114	w	l
 
 *** A Side ***
-M1a     vxa     0       iina    vss     nmos114         (W1)    (L1)
-Mbias1a iina    vbiasn  vss     vss     nmos114         (WB1)   (LB1)
-ML1a    vxa     vbiasp  vdd     vdd     pmos114         (WL1)   (LL1)
-Rua     vdd     vxa     (RU)
-Rda     vxa     vss     (RD)
-M2a     vya     vxa     vz      vss     nmos114         (W2)    (L2)
-Mbias2a vz      vbiasn  vss     vss     nmos114         (WB2)   (LB2)
-ML2a    vdd     vdd     vya     vss     nmos114         (WL2)   (LL2)
-M3a     vdd     vya     vouta   vss     nmos114         (W3)   (L3)
-Mbias3a vouta   vbiasn  vss     vss     nmos114         (WB3)   (LB3)  
+M1a     vxa     0       iina    vss     nmos114         'W1'    'L1'
+Mbias1a iina    vbiasn  vss     vss     nmos114         'WB1'   'LB1'
+ML1a    vxa     vbiasp  vdd     vdd     pmos114         'WL1'   'LL1'
+Rua     vdd     vxa     'RU'
+Rda     vxa     vss     'RD'
+M2a     vya     vxa     vz      vss     nmos114         'W2'    'L2'
+Mbias2a vz      vbiasn  vss     vss     nmos114         'WB2'   'LB2'
+ML2a    vdd     vdd     vya     vss     nmos114         'WL2'   'LL2'
+M3a     vdd     vya     vouta   vss     nmos114         'W3'    'L3'
+Mbias3a vouta   vbiasn  vss     vss     nmos114         'WB3'   'LB3'  
 
 *** B Side ***
 *NAME D G S B MODEL WIDTH LENGTH
@@ -72,6 +72,25 @@ M3b     vdd     vyb     voutb   vss     nmos114         [WIDTH3B] [LENGTH3B]
 Mbias3b voutb   vbiasn  vss     vss     nmos114         [WIDTHBIAS3B] [LENGTHBIAS3B]
 Rub     vdd     vxb     (RU)
 Rdb     vxb     vss     (RD)
+
+*** Variables ***
+.param W1 = 
+.param L1 = 
+.param WB1 = 
+.param LB1 = 
+.param WL1 = 
+.param W2 = 
+.param L2 = 
+.param WB2 = 
+.param LB2 = 
+.param WL2 = 
+.param LL2 = 
+.param W3 = 
+.param L3 = 
+.param WB3 = 
+.param LB3 = 
+.param RU = 10K
+.param RD = 10K
 
 *** Current Bias ***
 
