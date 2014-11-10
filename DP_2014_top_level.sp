@@ -1,12 +1,12 @@
 * Design Problem, ee114/214A- 2014
-* Team Member 1 Name:
-* Team Member 2 Name:
+* Team Member 1 Name: Charles Guan
+* Team Member 2 Name: Vikram Prasad
 * Please fill in the specification achieved by your circuit 
 * before you submit the netlist.
 **************************************************************
-* sunetids of team members = 
+* sunetids of team members = cguan2, vprasad2
 * The specifications that this script achieves are: 
-* Power  =    
+* Power  =   
 * Gain   =    
 * BandWidth =   
 * FOM = 
