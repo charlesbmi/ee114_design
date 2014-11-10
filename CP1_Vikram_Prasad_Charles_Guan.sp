@@ -49,27 +49,29 @@ CL	vouta		voutb		'CL'
 ***	d	g	s	b	n/pmos114	w	l
 
 *** A Side ***
-m1a     vxa     0       iina    vss     nmos114         (W1)    (L1)
-mb1a    iina    vbiasn  0       vss     nmos114         (WB1)   (LB1)
-ml1a    vxa     vbiasp  vdd     vdd     pmos114         (WL1)   (LL1)
+M1a     vxa     0       iina    vss     nmos114         (W1)    (L1)
+Mbias1a iina    vbiasn  vss     vss     nmos114         (WB1)   (LB1)
+ML1a    vxa     vbiasp  vdd     vdd     pmos114         (WL1)   (LL1)
 Rua     vdd     vxa     (RU)
 Rda     vxa     vss     (RD)
-m2a     vya     vxa     vz      vss     nmos114         (W2)    (L2)
-mb2a    vz      vbiasn  vss     vss     nmos114         (WB2)   (LB2)
-ml2a    vdd     vdd     vya     vss     nmos114         (WL2)   (LL2)
-m3a     vdd     vya     vouta   vss     nmos114         (W3)   (L3)
-mb3a    vouta   vbiasn  vss     vss     nmos114         (WB3)   (LB3)  
+M2a     vya     vxa     vz      vss     nmos114         (W2)    (L2)
+Mbias2a vz      vbiasn  vss     vss     nmos114         (WB2)   (LB2)
+ML2a    vdd     vdd     vya     vss     nmos114         (WL2)   (LL2)
+M3a     vdd     vya     vouta   vss     nmos114         (W3)   (L3)
+Mbias3a vouta   vbiasn  vss     vss     nmos114         (WB3)   (LB3)  
 
 *** B Side ***
 *NAME D G S B MODEL WIDTH LENGTH
-M1b vxb 0 iinb vss nmos114 [WIDTH1] [LENGTH1]
-Mbias-1b iinb vbiasn vss vss nmos114 [WIDTHBIAS-1B] [LENGTHBIAS-1B]
-ML-1b vx vbiasp vdd vdd pmos114 [WIDTHL-1B] [LENGTHL-1B]
-ML-2b vdd vdd vy vss nmos114 [WIDTHL-2B] [LENGTHL-2B]
-M2b vy vx vz vss nmos114 [WIDTHBIAS2B] [LENGTH2B]
-Mbias-2b vz vbiasn vss vss nmos114 [WIDTHBIAS-2B] [LENGTHBIAS-2B]
-M3b vdd vy voutb vss nmos114 [WIDTH3B] [LENGTH3B]
-Mbias-3b voutb vbiasn vss vss nmos114 [WIDTHBIAS-3B] [LENGTHBIAS-3B]
+M1b     vxb     0       iinb    vss     nmos114         [WIDTH1] [LENGTH1]
+Mbias1b iinb    vbiasn  vss     vss     nmos114         [WIDTHBIAS1B] [LENGTHBIAS1B]
+ML1b    vxb     vbiasp  vdd     vdd     pmos114         [WIDTHL1B] [LENGTHL1B]
+ML2b    vdd     vdd     vyb     vss     nmos114         [WIDTHL2B] [LENGTHL2B]
+M2b     vyb     vxb     vz      vss     nmos114         [WIDTHBIAS2B] [LENGTH2B]
+Mbias2b vz      vbiasn  vss     vss     nmos114         [WIDTHBIAS2B] [LENGTHBIAS2B]
+M3b     vdd     vyb     voutb   vss     nmos114         [WIDTH3B] [LENGTH3B]
+Mbias3b voutb   vbiasn  vss     vss     nmos114         [WIDTHBIAS3B] [LENGTHBIAS3B]
+Rub     vdd     vxb     (RU)
+Rdb     vxb     vss     (RD)
 
 *** Current Bias ***
 
