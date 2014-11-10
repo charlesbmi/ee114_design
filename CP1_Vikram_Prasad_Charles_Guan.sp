@@ -62,14 +62,14 @@ Mbias3a vouta   vbiasn  vss     vss     nmos114         (WB3)   (LB3)
 
 *** B Side ***
 *NAME D G S B MODEL WIDTH LENGTH
-M1b     vxb     0       iinb    vss     nmos114         [WIDTH1] [LENGTH1]
-Mbias1b iinb    vbiasn  vss     vss     nmos114         [WIDTHBIAS1B] [LENGTHBIAS1B]
-ML1b    vxb     vbiasp  vdd     vdd     pmos114         [WIDTHL1B] [LENGTHL1B]
-ML2b    vdd     vdd     vyb     vss     nmos114         [WIDTHL2B] [LENGTHL2B]
-M2b     vyb     vxb     vz      vss     nmos114         [WIDTHBIAS2B] [LENGTH2B]
-Mbias2b vz      vbiasn  vss     vss     nmos114         [WIDTHBIAS2B] [LENGTHBIAS2B]
-M3b     vdd     vyb     voutb   vss     nmos114         [WIDTH3B] [LENGTH3B]
-Mbias3b voutb   vbiasn  vss     vss     nmos114         [WIDTHBIAS3B] [LENGTHBIAS3B]
+M1b     vxb     0       iinb    vss     nmos114         'W1' 'L1'
+Mbias1b iinb    vbiasn  vss     vss     nmos114         'WB1' 'LB1'
+ML1b    vxb     vbiasp  vdd     vdd     pmos114         'WL1' 'LL1'
+ML2b    vdd     vdd     vyb     vss     nmos114         'WL2' 'LL2'
+M2b     vyb     vxb     vz      vss     nmos114         'W2' 'L2'
+Mbias2b vz      vbiasn  vss     vss     nmos114         'WB2' 'LB2'
+M3b     vdd     vyb     voutb   vss     nmos114         'W3' 'L3'
+Mbias3b voutb   vbiasn  vss     vss     nmos114         'WB3' 'LB3'
 Rub     vdd     vxb     (RU)
 Rdb     vxb     vss     (RD)
 
