@@ -49,7 +49,7 @@ CL	vouta		voutb		'CL'
 ***	d	g	s	b	n/pmos114	w	l
 
 *** A Side ***
-M1a     vxa     0       iina    vss     nmos114         'W1'    'L1'
+M1a     vxa     0       iina    vss     nmos114         w='W1'    l='L1'
 Mbias1a iina    vbiasn  vss     vss     nmos114         'WB1'   'LB1'
 ML1a    vxa     vbiasp  vdd     vdd     pmos114         'WL1'   'LL1'
 Rua     vdd     vxa     'RU'
@@ -70,34 +70,35 @@ M2b     vyb     vxb     vz      vss     nmos114         'W2' 'L2'
 Mbias2b vz      vbiasn  vss     vss     nmos114         'WB2' 'LB2'
 M3b     vdd     vyb     voutb   vss     nmos114         'W3' 'L3'
 Mbias3b voutb   vbiasn  vss     vss     nmos114         'WB3' 'LB3'
-Rub     vdd     vxb     (RU)
-Rdb     vxb     vss     (RD)
+Rub     vdd     vxb     'RU'
+Rdb     vxb     vss     'RD'
 
 *** Variables ***
-.param W1 = 
-.param L1 = 
-.param WB1 = 
-.param LB1 = 
-.param WL1 = 
-.param W2 = 
-.param L2 = 
-.param WB2 = 
-.param LB2 = 
-.param WL2 = 
-.param LL2 = 
-.param W3 = 
-.param L3 = 
-.param WB3 = 
-.param LB3 = 
-.param RU = 10K
-.param RD = 10K
+.param W1 = 40u
+.param L1 = 2u
+.param WB1 = 10u
+.param LB1 = 5u
+.param WL1 = 20u
+.param LL1 = 4u
+.param W2 = 50u
+.param L2 = 2u 
+.param WB2 = 10u
+.param LB2 = 5u
+.param WL2 = 2u
+.param LL2 = 2u
+.param W3 = 25u
+.param L3 = 2u
+.param WB3 = 10u
+.param LB3 = 5u
+.param RU = 20K
+.param RD = 20K
 
 *** Current Bias ***
 
 
 *** Your Bias Circuitry here ***
-vbiasn vbiasn 0 [VOLTAGE]
-vbiasp vbiasp 0 [VOLTAGE]
+vbiasn vbiasn 0 -1
+vbiasp vbiasp 0 1
 
 * defining the analysis
 
