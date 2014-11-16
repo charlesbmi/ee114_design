@@ -82,7 +82,7 @@ Rdb     vxb     vss     'RD'
 .param LL1 = 4u
 .param W2 = 50u
 .param L2 = 2u 
-.param WB2 = 10u
+.param WB2 = 2u
 .param LB2 = 5u
 .param WL2 = 2u
 .param LL2 = 2u
