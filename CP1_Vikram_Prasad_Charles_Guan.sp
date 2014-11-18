@@ -80,7 +80,7 @@ Rdb     vxb     vss     'RD'
 .param LB1 = 5u
 .param WL1 = 20u
 .param LL1 = 4u
-.param W2 = 50u
+.param W2 = 18u
 .param L2 = 2u 
 .param WB2 = 2u
 .param LB2 = 5u
@@ -90,8 +90,8 @@ Rdb     vxb     vss     'RD'
 .param L3 = 2u
 .param WB3 = 10u
 .param LB3 = 5u
-.param RU = 20K
-.param RD = 20K
+.param RU = 33K
+.param RD = 33K
 
 *** Current Bias ***
 
@@ -108,13 +108,12 @@ vbiasp vbiasp 0 1
 ** For ac simulation uncomment the following line** 
 .ac dec 1k 100 1g
 
-.measure ac gainmaxa max v(vouta)
+.measure ac gainmaxa max vdb(vouta)
+.measure ac gaindiff max v(vouta, voutb)
 .measure ac f3dba when vdb(vouta)='gainmaxa-3'
 
-.measure ac gainmaxb max v(voutb)
+.measure ac gainmaxb max vdb(voutb)
 .measure ac f3dbb when vdb(voutb)='gainmaxb-3'
-
-.measure ac gaindiff max v(vouta, voutb)
 
 ** For transient simulation uncomment the following line **
 *.tran 0.01u 4u 
