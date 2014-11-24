@@ -2,6 +2,7 @@ classdef mosfet < handle
 	properties (SetAccess = immutable)
 		W % width
 		L % length
+        Id
 		ro
 		gm
 		gmb
@@ -27,7 +28,8 @@ classdef mosfet < handle
 
 			M.W = W;
 			M.L = L;
-			M.ro = L/(lam*Id);
+            M.Id = Id;
+			M.ro = L*1e6/(lam*Id); % lam = lambda' / (L in um)
 			M.gm = sqrt(2*kp*(W/L)*Id);
 			M.gmb = 0.2*M.gm;
             M.gmp = M.gm + M.gmb;
@@ -38,7 +40,7 @@ classdef mosfet < handle
 				M.is_nmos = false;
 			end
 		end
-		function setCJ(vsb,vdb)
+		function setCJ(M,vsb,vdb)
             % Junction capcitance calculations
             Ldiff = 3e-6; % junction capacitances
             n_CJ = 0.1e-3; % 0.1 fF/um^2
@@ -49,17 +51,17 @@ classdef mosfet < handle
             MJSW = 0.33;
             PB = 0.95;
 
-            AS = W*Ldiff;
-            PS = W+2*Ldiff;
-            if is_nmos
+            AS = M.W*Ldiff;
+            PS = M.W+2*Ldiff;
+            if M.is_nmos
                 CJ = n_CJ;
                 CJSW = n_CJSW;
             else
                 CJ = p_CJ;
-                CJSW = p_CJ;
+                CJSW = p_CJSW;
             end
-			Csb = AS*CJ/(1+vsb/PB)^MJ + PS*CJSW/(1+vsb/PB)^MJ;
-			Cdb = AS*CJ/(1+vdb/PB)^MJ + PS*CJSW/(1+vdb/PB)^MJ;
+			M.Csb = AS*CJ/(1+vsb/PB)^MJ + PS*CJSW/(1+vsb/PB)^MJSW;
+			M.Cdb = AS*CJ/(1+vdb/PB)^MJ + PS*CJSW/(1+vdb/PB)^MJSW;
         end
     end
 end
