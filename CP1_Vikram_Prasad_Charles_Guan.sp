@@ -1,6 +1,7 @@
 * Design Problem, ee114/214A- 2014
 * Team Member 1 Name: Charles Guan
 * Team Member 2 Name: Vikram Prasad
+* btw(Both members enrolled in 114)
 * Please fill in the specification achieved by your circuit 
 * before you submit the netlist.
 **************************************************************
