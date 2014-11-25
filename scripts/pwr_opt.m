@@ -28,9 +28,43 @@ Wmax = 50e-6;
 Rmin = 10e3;
 Rmax = 120e3;
 
-specs(x0)
-
 xmin = [Wmin;Lmin;Wmin;LBmin;Wmin;Lmin;Wmin;Lmin;Wmin;LBmin;Wmin;Lmin;Wmin;Lmin;Wmin;LBmin;Rmin;Rmin];
 xmax = [Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Rmax;Rmax];
 %x = lsqnonlin(@specs,x0)%,xmin,xmax)
-x = fmincon(@specs,x0,[],[],[],[],xmin,xmax,@mycon,'TypicalX',x0,'TolX',1e-7)
+%opts = optimset('TypicalX',x0,'TolX',1e-9)
+%[x, min_pwr] = fmincon(@(x) specs(x),x0,[],[],[],[],xmin,xmax,@(x) mycon(x),opts)
+
+min_cost = 1e10;
+best_sizes = x0;
+d = 2; % denominator
+% TODO parfor this on the cluster  with lock
+
+for W1diff = -W1/2:W1/d:W1/2
+    for WB1diff = -WB1/2:WB1/d:WB1/2
+        disp('1 more');
+        for WL1diff = -WL1/2:WL1/d:WL1/2
+            for W2diff = -W2/2:W2/d:W2/2
+                for WB2diff = -WB2/2:WB2/d:WB2/2
+                    for WL2diff = -WL2/2:WL2/d:WL2/2
+                        for W3diff = -W3/2:W3/d:W3/2
+                            for WB3diff = -WB3/2:WB3/d:WB3/2
+                                for Rdiff = -RU/2:RU/d:RU/2
+
+                                    xdiff = [W1diff;0;WB1diff;0;WL1diff;0;W2diff;0;WB2diff;0;WL2diff;0;W3diff;0;WB3diff;0;Rdiff;Rdiff];
+                                    [gain, bw, pwr] = specs(x0 + xdiff);
+                                    cost = norm([gain; bw; pwr] - [45; 90; 0]);
+                                    if cost < min_cost
+                                        min_cost = cost;
+                                        best_sizes = x0 + xdiff;
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
+
+

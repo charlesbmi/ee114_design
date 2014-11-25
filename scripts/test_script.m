@@ -4,12 +4,12 @@
 clear all;
 
 % Sample variable values
-W1 = 40e-6;
-L1 = 2e-6;
+W1 = 5e-6;
+L1 = 1e-6;
 WB1 = 10e-6;
 LB1 = 5e-6;
-WL1 = 20e-6;
-LL1 = 4e-6;
+WL1 = 5e-6;
+LL1 = 1e-6;
 W2 = 9e-6;
 L2 = 1e-6;
 WB2 = 2e-6;
@@ -19,7 +19,7 @@ LL2 = 2e-6;
 W3 = 25e-6;
 L3 = 1e-6;
 WB3 = 10e-6;
-LB3 = 5e-6;
+LB3 = 2e-6;
 RU = 33e3;
 RD = 33e3;
 
@@ -36,11 +36,6 @@ Vbiasp = 1;
 lam = 0.1; % lambda', ie lambda = lambda' / length
 Cov = 0.5e-9; % Cov'=0.5fF/um, Cov=Cov'*W;
 kp = 50e-6; % 50 uA/V^2
-Cox = 2.3e-3;
-Vov_min = 0.150;
-gam = 0.6; %V^0.5
-phi = 0.8; %2phi, Vt = Vt0 + gam*(sqrt(2phi+Vsb)-sqrt(2phi))
-Vt0 = 0.5;
 
 % Junction capcitance constants
 Ldiff = 3e-6; % junction capacitances
@@ -122,7 +117,7 @@ Av = abs(Avin*Av1*Av2*Av3);
 % Pole computations %
 %%%%%%%%%%%%%%%%%%%%%
 % Input pole
-Cinput = Cin + M1.Cgs + M1.Csb + MB1.Cgd + MB1.Cdb %Cin + Cgs1 + Csb1 + Cgdbias1 + Cdbbias1
+Cinput = Cin + M1.Cgs + M1.Csb + MB1.Cgd + MB1.Cdb; %Cin + Cgs1 + Csb1 + Cgdbias1 + Cdbbias1
 Rinput = MB1.ro | M1.ro | (1 + R1/M1.ro)/M1.gmp; % approx gm1*5/6
 tau_in = Rinput*Cinput;
 

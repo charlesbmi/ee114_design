@@ -10,7 +10,7 @@ function [gain, bw, pwr] = specs(sizes);
 %   pwr - in mW
 
 sizeCell = num2cell(sizes);
-[W1 L1 WB1 LB1 WL1 LL1 W2 L2 WB2 LB2 WL2 LL2 W3 L3 WB3 LB3 RU RD] = sizeCell{:}
+[W1 L1 WB1 LB1 WL1 LL1 W2 L2 WB2 LB2 WL2 LL2 W3 L3 WB3 LB3 RU RD] = sizeCell{:};
 
 % Other components
 Vdd = 2.5;
@@ -74,14 +74,14 @@ ML2 = mosfet(WL2,LL2,I2);
 
 % Operating point calculations without CLM or body effect
 Vin = -sqrt(2*I1/(kp*W1/L1))-Vt0;
-Vin = Vin-gam*(sqrt(phi+Vin-Vss)-sqrt(phi)) % body effect,gam*(sqrt(2phi+Vsb)-sqrt(2phi))
+Vin = Vin-gam*(sqrt(phi+Vin-Vss)-sqrt(phi)); % body effect,gam*(sqrt(2phi+Vsb)-sqrt(2phi))
 Vx = 0;
 Vy = Vdd-sqrt(2*I2/(kp*WL2/LL2))-Vt0;
-Vy = Vy-gam*(sqrt(phi+Vy-Vss)-sqrt(phi)) % body effect,gam*(sqrt(2phi+Vsb)-sqrt(2phi))
+Vy = Vy-gam*(sqrt(phi+Vy-Vss)-sqrt(phi)); % body effect,gam*(sqrt(2phi+Vsb)-sqrt(2phi))
 Vz = -sqrt(2*I2/(kp*W2/L2))-Vt0;
-Vz = Vz-gam*(sqrt(phi+Vz-Vss)-sqrt(phi))
+Vz = Vz-gam*(sqrt(phi+Vz-Vss)-sqrt(phi));
 Vout = Vy-sqrt(2*I3/(kp*W3/L3))-Vt0;
-Vout = Vout-gam*(sqrt(phi+Vout-Vss)-sqrt(phi))
+Vout = Vout-gam*(sqrt(phi+Vout-Vss)-sqrt(phi));
 
 % calculate and set junction capacitances
 MB1.setCJ(0,Vin-Vss); % vsb, vdb
@@ -101,39 +101,39 @@ R1 = RU | RD | ML1.ro;
 R2 = 1/ML2.gmp | M2.ro | ML2.ro;
 R3 = M3.ro | 1/M3.gmb | MB3.ro | RL/2; % approx 1/gmb | RL/2
 
-Avin = M1.gmp/(M1.gmp + 1/MB1.ro) % current transfer of CG gm'/(gm'+1/Rs)
-Av1 = R1 | M1.ro*(1+M1.gmp*MB1.ro) % RU || RD || roL1 || ro1, approx RU || RD
-Av2 = -M2.gm*R2 % gm2*(1/gmL2 || 1/gmbL2 || roL2 || ro2), approx  gm2/gm'L2
-Av3 = M3.gm*R3/(M3.gm*R3+1)
+Avin = M1.gmp/(M1.gmp + 1/MB1.ro); % current transfer of CG gm'/(gm'+1/Rs)
+Av1 = R1 | M1.ro*(1+M1.gmp*MB1.ro); % RU || RD || roL1 || ro1, approx RU || RD
+Av2 = -M2.gm*R2; % gm2*(1/gmL2 || 1/gmbL2 || roL2 || ro2), approx  gm2/gm'L2
+Av3 = M3.gm*R3/(M3.gm*R3+1);
 Av = abs(Avin*Av1*Av2*Av3);
 
 %%%%%%%%%%%%%%%%%%%%%
 % Pole computations %
 %%%%%%%%%%%%%%%%%%%%%
 % Input pole
-Cinput = Cin + M1.Cgs + M1.Csb + MB1.Cgd + MB1.Cdb %Cin + Cgs1 + Csb1 + Cgdbias1 + Cdbbias1
+Cinput = Cin + M1.Cgs + M1.Csb + MB1.Cgd + MB1.Cdb; %Cin + Cgs1 + Csb1 + Cgdbias1 + Cdbbias1
 Rinput = MB1.ro | M1.ro | (1 + R1/M1.ro)/M1.gmp; % approx gm1*5/6
 tau_in = Rinput*Cinput;
 
 % Node x pole (gate of M2)
 Cx = M1.Cgd + ML1.Cdb + ML1.Cgd + M2.Cgs + M2.Cgd*(1-Av2); % Cgd1 + Cgb1 + CdbL1 + CgdL1 + Cgs2 + Cgb2 + Cgd2*(1-Av2). Cgb=0 in sat
 Rx = Av1;
-tau_x = Cx*Rx
+tau_x = Cx*Rx;
 
 % Node y pole (gate of M3)
 Cy = M2.Cdb + M2.Cgd*(1-1/Av2) + ML2.Csb + ML2.Cgs + M3.Cgs*(1-Av3) + M3.Cgd;  %Cdb2 + Cgd2*(1-1/Av2) + CsbL2 + CsgL2 + Cgs3*(1-Av3) + Cgd3 + Cgb3 % approx Cgs3 = 0
 Ry = 1/ML2.gmp | M2.ro | ML2.ro; % approx 1/ML2.gmp
-tau_y = Cy * Ry
+tau_y = Cy * Ry;
 
 % Output pole
 Cout = 2*CL + M3.Csb + M3.Cgs*(1-1/Av3) + MB3.Cgd + MB3.Cdb; % 2x due to diff mode % Cgs negative and about zero due to Miller
 %Rout = 1/(1.2*gm3) || ro3 || ro3bias3b || RL/2 % body effect 
 Rout = 1/M3.gm | R3;
-tau_out = Cout * Rout
+tau_out = Cout * Rout;
 
-zvtc = tau_in + tau_x + tau_y + tau_out
-bw = 1/(2*pi*zvtc)/1e6 * 1.1 % ZVTC tends to underestimate
-gain = Av / 1e3 % in kOhm
-pwr = 1e3*(2*(Vdd-Vss)*(I1+I2+I3) + (Vdd-Vss)^2/(RU+RD)) % in mW
+zvtc = tau_in + tau_x + tau_y + tau_out;
+bw = 1/(2*pi*zvtc)/1e6 * 1.1; % ZVTC tends to underestimate
+gain = Av / 1e3; % in kOhm
+pwr = 1e3*(2*(Vdd-Vss)*(I1+I2+I3) + (Vdd-Vss)^2/(RU+RD)); % in mW
 
 end
