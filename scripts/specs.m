@@ -1,4 +1,4 @@
-function [gain, bw, pwr] = specs(sizes);
+function [gain, bw, pwr, RU_RD] = specs(sizes);
 % Charles Guan and Vikram Prasad
 % EE114 Design Project
 % Calculates the gain, bw, and power specs for a given sizing
@@ -10,7 +10,7 @@ function [gain, bw, pwr] = specs(sizes);
 %   pwr - in mW
 
 sizeCell = num2cell(sizes);
-[W1 L1 WB1 LB1 WL1 LL1 W2 L2 WB2 LB2 WL2 LL2 W3 L3 WB3 LB3 RU RD] = sizeCell{:};
+[W1 L1 WB1 LB1 WL1 LL1 W2 L2 WB2 LB2 WL2 LL2 W3 L3 WB3 LB3] = sizeCell{:};
 
 % Other components
 Vdd = 2.5;
@@ -72,7 +72,7 @@ M3 = mosfet(W3,L3,I3);
 ML1 = mosfet(WL1,LL1,I1,'p');
 ML2 = mosfet(WL2,LL2,I2);
 
-% Operating point calculations without CLM or body effect
+% Operating point calculations without CLM, but with body effect
 Vin = -sqrt(2*I1/(kp*W1/L1))-Vt0;
 Vin = Vin-gam*(sqrt(phi+Vin-Vss)-sqrt(phi)); % body effect,gam*(sqrt(2phi+Vsb)-sqrt(2phi))
 Vx = 0;
@@ -96,16 +96,27 @@ ML2.setCJ(Vy-Vss,Vdd-Vss);
 %%%%%%%%%%%%%%%%%%%%%
 % Gain computations %
 %%%%%%%%%%%%%%%%%%%%%
-%Av1 = par(par(RU,RD), par(ML1.ro,M1.ro)); % RU || RD || roL1 || ro1
-R1 = RU | RD | ML1.ro;
+%R1 = RU | RD | ML1.ro;
 R2 = 1/ML2.gmp | M2.ro | ML2.ro;
 R3 = M3.ro | 1/M3.gmb | MB3.ro | RL/2; % approx 1/gmb | RL/2
 
 Avin = M1.gmp/(M1.gmp + 1/MB1.ro); % current transfer of CG gm'/(gm'+1/Rs)
-Av1 = R1 | M1.ro*(1+M1.gmp*MB1.ro); % RU || RD || roL1 || ro1, approx RU || RD
+%Av1 = R1 | M1.ro*(1+M1.gmp*MB1.ro); % RU || RD || roL1 || ro1, approx RU || RD
 Av2 = -M2.gm*R2; % gm2*(1/gmL2 || 1/gmbL2 || roL2 || ro2), approx  gm2/gm'L2
 Av3 = M3.gm*R3/(M3.gm*R3+1);
+% Automatically scale RU and RD to 40kOhm gain
+%%% begin scaling
+Av1 = 40e3/abs(Avin*Av2*Av3);
+R1_drains = ML1.ro | M1.ro*(1+M1.gmp*MB1.ro); % Av1 = R1a | RU | RD;
+RU_RD = R1_drains*Av1/(R1_drains-Av1);
+RU = RU_RD * 2;
+RD = RU;
+R1 = RU | RD | ML1.ro;
+Av1 = R1 | M1.ro*(1+M1.gmp*MB1.ro); % RU || RD || roL1 || ro1, approx RU || RD
+%%% end scaling
 Av = abs(Avin*Av1*Av2*Av3);
+
+IR = (Vdd-Vss)/(RU+RD); % power consumed by resistors
 
 %%%%%%%%%%%%%%%%%%%%%
 % Pole computations %
@@ -134,6 +145,6 @@ tau_out = Cout * Rout;
 zvtc = tau_in + tau_x + tau_y + tau_out;
 bw = 1/(2*pi*zvtc)/1e6 * 1.1; % ZVTC tends to underestimate
 gain = Av / 1e3; % in kOhm
-pwr = 1e3*(2*(Vdd-Vss)*(I1+I2+I3) + (Vdd-Vss)^2/(RU+RD)); % in mW
+pwr = 1e3*(2*(Vdd-Vss)*(I1+I2+I3+IR)); % in mW
 
 end
