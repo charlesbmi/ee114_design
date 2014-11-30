@@ -1,4 +1,4 @@
-function [gain, bw, pwr] = specs(sizes);
+function [gain, bw, pwr, RU_RD] = specs(sizes);
 % Charles Guan and Vikram Prasad
 % EE114 Design Project
 % Calculates the gain, bw, and power specs for a given sizing
@@ -112,7 +112,7 @@ RU_RD = R1_drains*Av1/(R1_drains-Av1);
 RU = RU_RD * 2;
 RD = RU;
 R1 = RU | RD | ML1.ro;
-Av1 = R1 | M1.ro*(1+M1.gmp*MB1.ro) % RU || RD || roL1 || ro1, approx RU || RD
+Av1 = R1 | M1.ro*(1+M1.gmp*MB1.ro); % RU || RD || roL1 || ro1, approx RU || RD
 %%% end scaling
 Av = abs(Avin*Av1*Av2*Av3);
 

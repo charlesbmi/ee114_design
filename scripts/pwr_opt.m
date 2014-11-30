@@ -4,65 +4,51 @@
 
 clear all;
 
-W1 = 5e-6;
-L1 = 1e-6;
-WB1 = 10e-6; % todo sweep this and lock WL1 as appropriate
-LB1 = 5e-6;
-WL1 = 5e-6; % lock this with WB1
-LL1 = 1e-6;
-W2 = 4e-6; % todo sweep this
-L2 = 1e-6;
-WB2 = 2e-6; % todo sweep this
-LB2 = 5e-6;
-WL2 = 1e-6;
-LL2 = 1e-6;
-W3 = 25e-6; % what to do with this?
-L3 = 1e-6;
-WB3 = 10e-6; % todo sweep this
-LB3 = 5e-6;
-
-x0 = [W1;L1;WB1;LB1;WL1;LL1;W2;L2;WB2;LB2;WL2;LL2;W3;L3;WB3;LB3];
-Lmin = 1e-6;
-LBmin = 2e-6;
-Wmin = 2e-6;
-Lmax = 20e-6;
-Wmax = 50e-6;
-
-xmin = [Wmin;Lmin;Wmin;LBmin;Wmin;Lmin;Wmin;Lmin;Wmin;LBmin;Wmin;Lmin;Wmin;Lmin;Wmin;LBmin];
-xmax = [Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wmax;Lmax];
-%x = lsqnonlin(@specs,x0)%,xmin,xmax)
-%opts = optimset('TypicalX',x0,'TolX',1e-9)
-%[x, min_pwr] = fmincon(@(x) specs(x),x0,[],[],[],[],xmin,xmax,@(x) mycon(x),opts)
+W1 = 5;
+L1 = 1;
+WB1 = 10; % todo sweep this and lock WL1 as appropriate
+LB1 = 2;
+WL1 = 5; % lock this with WB1
+LL1 = 1;
+W2 = 4; % todo sweep this
+L2 = 1;
+WB2 = 2; % todo sweep this
+LB2 = 2;
+WL2 = 2;
+LL2 = 2;
+W3 = 20; % what to do with this? I guess this can be very large. because of Miller cancel. But not too large?
+L3 = 1;
+WB3 = 10; % todo sweep this
+LB3 = 2;
 
 min_cost = 1e10;
-best_sizes = x0;
-d = 2; % denominator
-% TODO parfor this on the cluster  with lock
+min_pwr = 0;
+best_sizes = 0;
+best_R = 0;
 
-for W1diff = -W1/2:W1/d:W1/2
-    for WB1diff = -WB1/2:WB1/d:WB1/2
-        disp('1 more');
-        for WL1diff = -WL1/2:WL1/d:WL1/2
-            for W2diff = -W2/2:W2/d:W2/2
-                for WB2diff = -WB2/2:WB2/d:WB2/2
-                    for WL2diff = -WL2/2:WL2/d:WL2/2
-                        for W3diff = -W3/2:W3/d:W3/2
-                            for WB3diff = -WB3/2:WB3/d:WB3/2
+% todo parfor on cluster?
+%WBR = [2, 5, 10, 15, 20, 25] % Bias width range 
+WBR = [2:5,7,10]
 
-                                    xdiff = [W1diff;0;WB1diff;0;WL1diff;0;W2diff;0;WB2diff;0;WL2diff;0;W3diff;0;WB3diff;0];
-                                    [gain, bw, pwr] = specs(x0 + xdiff);
-                                    cost = norm([gain; bw; pwr] - [45; 90; 0]);
-                                    if cost < min_cost
-                                        min_cost = cost;
-                                        best_sizes = x0 + xdiff;
-                                end
-                            end
-                        end
-                    end
+for WB1 = WBR
+    WL1 = 2*WB1/LB1*LL1; % match sizes to match current, diff uc
+    for W2 = [2:6]
+        for WB2 = WBR
+            for WB3 = WBR
+                for W3 = [15,25,27]
+
+x = [W1;L1;WB1;LB1;WL1;LL1;W2;L2;WB2;LB2;WL2;LL2;W3;L3;WB3;LB3];
+[gain, bw, pwr, Req] = specs(x*1e-6);
+cost = max(40-gain,0) + max(80-bw,0) + pwr;
+if cost < min_cost & pwr < 2.5
+    min_cost = cost
+    min_pwr = pwr;
+    best_sizes = x;
+    best_R = Req;
+end
+
                 end
             end
         end
     end
 end
-
-
