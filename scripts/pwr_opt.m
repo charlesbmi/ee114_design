@@ -34,12 +34,17 @@ xmax = [Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wmax;Lmax;Wm
 %opts = optimset('TypicalX',x0,'TolX',1e-9)
 %[x, min_pwr] = fmincon(@(x) specs(x),x0,[],[],[],[],xmin,xmax,@(x) mycon(x),opts)
 
-min_cost = 1e10;
 best_sizes = x0;
-d = 2; % denominator
+d = 6; % denominator
 % TODO parfor this on the cluster  with lock
 
-for W1diff = -W1/2:W1/d:W1/2
+range = -W1/2:W1/d:W1/2;
+min_cost = 1e10*ones(size(range));
+best_sizes = repmat(x0,[1 numel(range)]);
+
+for rangei = 1:numel(range)
+    W1diff = range(rangei);
+    disp(['starting parfor index: ',num2str(rangei)])
     for WB1diff = -WB1/2:WB1/d:WB1/2
         disp('1 more');
         for WL1diff = -WL1/2:WL1/d:WL1/2
@@ -53,9 +58,9 @@ for W1diff = -W1/2:W1/d:W1/2
                                     xdiff = [W1diff;0;WB1diff;0;WL1diff;0;W2diff;0;WB2diff;0;WL2diff;0;W3diff;0;WB3diff;0;Rdiff;Rdiff];
                                     [gain, bw, pwr] = specs(x0 + xdiff);
                                     cost = norm([gain; bw; pwr] - [45; 90; 0]);
-                                    if cost < min_cost
-                                        min_cost = cost;
-                                        best_sizes = x0 + xdiff;
+                                    if cost < min_cost(rangei)
+                                        min_cost(rangei) = cost;
+                                        best_sizes(:,rangei) = x0 + xdiff;
                                     end
                                 end
                             end

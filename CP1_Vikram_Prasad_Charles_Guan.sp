@@ -75,24 +75,24 @@ Rub     vdd     vxb     'RU'
 Rdb     vxb     vss     'RD'
 
 *** Variables ***
-.param W1 = 40u
-.param L1 = 2u
-.param WB1 = 10u
-.param LB1 = 5u
-.param WL1 = 20u
-.param LL1 = 4u
-.param W2 = 9u
+.param W1 = 5u
+.param L1 = 1u
+.param WB1 = 3u
+.param LB1 = 2u
+.param WL1 = 3u
+.param LL1 = 1u
+.param W2 = 3u
 .param L2 = 1u 
 .param WB2 = 2u
-.param LB2 = 5u
-.param WL2 = 2u
+.param LB2 = 3u
+.param WL2 = 3u
 .param LL2 = 2u
-.param W3 = 25u
-.param L3 = 2u
-.param WB3 = 10u
-.param LB3 = 5u
-.param RU = 33K
-.param RD = 33K
+.param W3 = 29u
+.param L3 = 1u
+.param WB3 = 3u
+.param LB3 = 2u
+.param RU = 125K
+.param RD = 125K
 
 *** Current Bias ***
 
