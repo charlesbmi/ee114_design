@@ -10,16 +10,16 @@ WB1 = 10e-6;
 LB1 = 5e-6;
 WL1 = 5e-6;
 LL1 = 1e-6;
-W2 = 9e-6;
+W2 = 4e-6;
 L2 = 1e-6;
 WB2 = 2e-6;
 LB2 = 5e-6;
-WL2 = 2e-6;
-LL2 = 2e-6;
+WL2 = 1e-6;
+LL2 = 1e-6;
 W3 = 25e-6;
 L3 = 1e-6;
 WB3 = 10e-6;
-LB3 = 2e-6;
+LB3 = 5e-6;
 RU = 33e3;
 RD = 33e3;
 
@@ -36,6 +36,11 @@ Vbiasp = 1;
 lam = 0.1; % lambda', ie lambda = lambda' / length
 Cov = 0.5e-9; % Cov'=0.5fF/um, Cov=Cov'*W;
 kp = 50e-6; % 50 uA/V^2
+Cox = 2.3e-3;
+Vov_min = 0.150;
+gam = 0.6; %V^0.5
+phi = 0.8; %2phi, Vt = Vt0 + gam*(sqrt(2phi+Vsb)-sqrt(2phi))
+Vt0 = 0.5;
 
 % Junction capcitance constants
 Ldiff = 3e-6; % junction capacitances
@@ -111,6 +116,16 @@ Avin = M1.gmp/(M1.gmp + 1/MB1.ro) % current transfer of CG gm'/(gm'+1/Rs)
 Av1 = R1 | M1.ro*(1+M1.gmp*MB1.ro) % RU || RD || roL1 || ro1, approx RU || RD
 Av2 = -M2.gm*R2 % gm2*(1/gmL2 || 1/gmbL2 || roL2 || ro2), approx  gm2/gm'L2
 Av3 = M3.gm*R3/(M3.gm*R3+1)
+% Automatically scale RU and RD to 40kOhm gain
+%%% begin scaling
+Av1 = 40e3/abs(Avin*Av2*Av3);
+R1_drains = ML1.ro | M1.ro*(1+M1.gmp*MB1.ro); % Av1 = R1a | RU | RD;
+RU_RD = R1_drains*Av1/(R1_drains-Av1);
+RU = RU_RD * 2;
+RD = RU;
+R1 = RU | RD | ML1.ro;
+Av1 = R1 | M1.ro*(1+M1.gmp*MB1.ro) % RU || RD || roL1 || ro1, approx RU || RD
+%%% end scaling
 Av = abs(Avin*Av1*Av2*Av3);
 
 %%%%%%%%%%%%%%%%%%%%%
@@ -140,4 +155,5 @@ tau_out = Cout * Rout
 zvtc = tau_in + tau_x + tau_y + tau_out
 approx_BW_in_Mhz = 1/(2*pi*zvtc)/1e6 * 1.1 % ZVTC tends to underestimate
 gain_in_kOhm = Av / 1e3
-pwr_in_mW = 1e3*(2*(Vdd-Vss)*(I1+I2+I3) + (Vdd-Vss)^2/(RU+RD)) % in mW
+IR = (Vdd-Vss)/(RU+RD);
+pwr_in_mW = 1e3*(2*(Vdd-Vss)*(I1+I2+I3+IR)) % in mW
