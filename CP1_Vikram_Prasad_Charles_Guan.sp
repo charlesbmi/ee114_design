@@ -118,5 +118,6 @@ vbiasp vbiasp 0 1
 
 ** For transient simulation uncomment the following line **
 .tran 0.01u 4u 
+.probe tran v(vouta,voutb)
 
 .end
