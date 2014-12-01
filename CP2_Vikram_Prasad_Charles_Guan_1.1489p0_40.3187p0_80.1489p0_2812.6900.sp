@@ -87,9 +87,9 @@ Rdb     vxb     vss     'RD'
 .param LB2 = 4u
 .param WL2 = 2u
 .param LL2 = 1.6u
-.param W3 = 30u
+.param W3 = 26u
 .param L3 = 1u
-.param WB3 = 4.6u
+.param WB3 = 4u
 .param LB3 = 2u
 .param RU = 90K
 .param RD = 90K 
