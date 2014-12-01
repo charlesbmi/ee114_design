@@ -29,12 +29,12 @@ vss vss 0 -2.5
 * Defining the input current source
 
 ** For ac simulation uncomment the following 2 lines**
- Iina		iina	vdd	ac	0.5	
- Iinb		vdd	iinb	ac	0.5	
+* Iina		iina	vdd	ac	0.5	
+* Iinb		vdd	iinb	ac	0.5	
 
 ** For transient simulation uncomment the following 2 lines**
-*Iina		iina	vdd	sin(0 0.5u 1e6)
-*Iinb		vdd	iinb	sin(0 0.5u 1e6)
+Iina		iina	vdd	sin(0 0.5u 1e6)
+Iinb		vdd	iinb	sin(0 0.5u 1e6)
 
 * Defining Input capacitance
 
@@ -107,7 +107,7 @@ vbiasp vbiasp 0 1
 .option post brief nomod
 
 ** For ac simulation uncomment the following line** 
-.ac dec 1k 100 1g
+*.ac dec 1k 100 1g
 
 .measure ac gainmaxa max vdb(vouta)
 .measure ac gaindiff max v(vouta, voutb)
@@ -117,6 +117,6 @@ vbiasp vbiasp 0 1
 .measure ac f3dbb when vdb(voutb)='gainmaxb-3'
 
 ** For transient simulation uncomment the following line **
-*.tran 0.01u 4u 
+.tran 0.01u 4u 
 
 .end
