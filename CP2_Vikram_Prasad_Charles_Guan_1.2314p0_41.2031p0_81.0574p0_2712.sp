@@ -77,22 +77,22 @@ Rdb     vxb     vss     'RD'
 *** Variables ***
 .param W1 = 5u
 .param L1 = 1u
-.param WB1 = 3u
-.param LB1 = 2u
+.param WB1 = 2u
+.param LB1 = 3u
 .param WL1 = 3u
-.param LL1 = 1u
+.param LL1 = 2u
 .param W2 = 3u
 .param L2 = 1u 
 .param WB2 = 2u
-.param LB2 = 3u
-.param WL2 = 3u
-.param LL2 = 2u
-.param W3 = 29u
+.param LB2 = 4u
+.param WL2 = 2u
+.param LL2 = 1.6u
+.param W3 = 30u
 .param L3 = 1u
-.param WB3 = 3u
+.param WB3 = 4.6u
 .param LB3 = 2u
-.param RU = 100K
-.param RD = 167K 
+.param RU = 90K
+.param RD = 90K 
 
 *** Current Bias ***
 
