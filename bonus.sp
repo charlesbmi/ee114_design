@@ -55,19 +55,19 @@ Mbias1a iina    vbiasn  vss     vss     nmos114         w='WB1'   l='LB1'
 ML1a    vxa     vbiasp  vdd     vdd     pmos114         w='WL1'   l='LL1'
 Rua     vdd     vxa     'RU'
 Rda     vxa     vss     'RD'
-M2a     vya     vxa     vz      vss     nmos114         w='W2'    l='L2'
+M2a     vcsa    vxa     vz      vss     nmos114         w='W2'    l='L2'
 Mbias2a vz      vbiasn  vss     vss     nmos114         w='WB2'   l='LB2'
 ML2a    vdd     vdd     vya     vss     nmos114         w='WL2'   l='LL2'
 M3a     vdd     vya     vouta   vss     nmos114         w='W3'    l='L3'
 Mbias3a vouta   vbiasn  vss     vss     nmos114         w='WB3'   l='LB3'  
 
 *** Cascode 
-*MC2a
-*MC2b
+Mcasc2a vya     vbiasp    vcsa    vss     nmos114         w='W2'    l='L2'    
+Mcasc2b vyb     vbiasp     vcsb    vss     nmos114         w='W2'    l='L2'
 
 ** Capacitor nulling
-Mcapa2b vyb     vxa     vyb     vss     nmos114         w='W2/2'  l='L2'
-Mcapb2a vya     vxb     vya     vss     nmos114          w='W2/2'  l='L2'
+*Mcapa2b vyb     vxa     vyb     vss     nmos114         w='W2/2'  l='L2'
+*Mcapb2a vya     vxb     vya     vss     nmos114          w='W2/2'  l='L2'
 
 *** B Side ***
 *NAME D G S B MODEL WIDTH LENGTH
@@ -75,7 +75,7 @@ M1b     vxb     0       iinb    vss     nmos114         w='W1' l='L1'
 Mbias1b iinb    vbiasn  vss     vss     nmos114         w='WB1' l='LB1'
 ML1b    vxb     vbiasp  vdd     vdd     pmos114         w='WL1' l='LL1'
 ML2b    vdd     vdd     vyb     vss     nmos114         w='WL2' l='LL2'
-M2b     vyb     vxb     vz      vss     nmos114         w='W2'  l='L2'
+M2b     vcsb     vxb     vz      vss     nmos114         w='W2'  l='L2'
 Mbias2b vz      vbiasn  vss     vss     nmos114         w='WB2' l='LB2'
 M3b     vdd     vyb     voutb   vss     nmos114         w='W3' l='L3'
 Mbias3b voutb   vbiasn  vss     vss     nmos114         w='WB3' l='LB3'
@@ -92,7 +92,7 @@ Rdb     vxb     vss     'RD'
 .param W2 = 3u
 .param L2 = 1u 
 .param WB2 = 2u
-.param LB2 = 4u
+.param LB2 = 6u
 .param WL2 = 2u
 .param LL2 = 1.6u
 .param W3 = 26u
