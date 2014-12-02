@@ -57,14 +57,17 @@ Rua     vdd     vxa     'RU'
 Rda     vxa     vss     'RD'
 M2a     vcsa    vxa     vz      vss     nmos114         w='W2'    l='L2'
 Mbias2a vz      vbiasn  vss     vss     nmos114         w='WB2'   l='LB2'
-ML2a    vdd     vdd     vya     vss     nmos114         w='WL2'   l='LL2'
+*ML2a    vdd     vdd     vya     vss     nmos114         w='WL2'   l='LL2'
 M3a     vdd     vya     vouta   vss     nmos114         w='W3'    l='L3'
 Mbias3a vouta   vbiasn  vss     vss     nmos114         w='WB3'   l='LB3'  
 
 *** Cascode 
-Mcasc2a vya     vbiasp    vcsa    vss     nmos114         w='W2'    l='L2'    
+***	d	g	s	b	n/pmos114	w	l
+Mcasc2a vya     vbiasp    vcsa    vss     nmos114         w='W2'    l='L2'
 Mcasc2b vyb     vbiasp     vcsb    vss     nmos114         w='W2'    l='L2'
-
+* switch to pmos, then gs connect it
+ML2a    vya     vya     vdd     vdd     pmos114         w='WL2'   l='LL2'
+ML2b    vyb     vya     vdd     vdd     pmos114         w='WL2' l='LL2'
 ** Capacitor nulling
 *Mcapa2b vyb     vxa     vyb     vss     nmos114         w='W2/2'  l='L2'
 *Mcapb2a vya     vxb     vya     vss     nmos114          w='W2/2'  l='L2'
@@ -74,7 +77,7 @@ Mcasc2b vyb     vbiasp     vcsb    vss     nmos114         w='W2'    l='L2'
 M1b     vxb     0       iinb    vss     nmos114         w='W1' l='L1'
 Mbias1b iinb    vbiasn  vss     vss     nmos114         w='WB1' l='LB1'
 ML1b    vxb     vbiasp  vdd     vdd     pmos114         w='WL1' l='LL1'
-ML2b    vdd     vdd     vyb     vss     nmos114         w='WL2' l='LL2'
+*ML2b    vdd     vdd     vyb     vss     nmos114         w='WL2' l='LL2'
 M2b     vcsb     vxb     vz      vss     nmos114         w='W2'  l='L2'
 Mbias2b vz      vbiasn  vss     vss     nmos114         w='WB2' l='LB2'
 M3b     vdd     vyb     voutb   vss     nmos114         w='W3' l='L3'
