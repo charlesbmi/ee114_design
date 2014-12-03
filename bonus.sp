@@ -83,7 +83,7 @@ ML2a    vdd     vdd     vya     vss     nmos114         w='WL2'   l='LL2'
 *Mcapb2a vya     vxb     vya     vss     nmos114          w='W2/2'  l='L2'
 Rda vdd vxa 'RD'
 Rdb vdd vxb 'RD'
-.param RD = 60K
+.param RD = 100K
 
 *** Cascode-regulated NMOS decrease input impedance
 ML1a    vfa     vbiasp  vdd     vdd     pmos114         w='WL1'   l='LL1'
