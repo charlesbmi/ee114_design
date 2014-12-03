@@ -110,7 +110,7 @@ Mbias3b voutb   vbiasn  vss     vss     nmos114         w='WB3' l='LB3'
 .param W1 = 5u
 .param L1 = 1u
 .param WB1 = 2u
-.param LB1 = 4u
+.param LB1 = 6u
 .param WL1 = 2u
 .param LL1 = 6u
 .param W2 = 3u
@@ -121,10 +121,8 @@ Mbias3b voutb   vbiasn  vss     vss     nmos114         w='WB3' l='LB3'
 .param LL2 = 1.6u
 .param W3 = 26u
 .param L3 = 1u
-.param WB3 = 4u
+.param WB3 = 2u
 .param LB3 = 2u
-.param RU = 90K
-.param RD = 90K 
 
 *** Current Bias ***
 
