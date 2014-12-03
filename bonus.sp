@@ -50,7 +50,7 @@ CL	vouta		voutb		'CL'
 ***	d	g	s	b	n/pmos114	w	l
 
 *** A Side ***
-M1a     vxa     0       iina    vss     nmos114         w='W1'    l='L1'
+*M1a     vxa     0       iina    vss     nmos114         w='W1'    l='L1'
 Mbias1a iina    vbiasn  vss     vss     nmos114         w='WB1'   l='LB1'
 *ML1a    vxa     vbiasp  vdd     vdd     pmos114         w='WL1'   l='LL1'
 *Rua     vdd     vxa     'RU'
@@ -65,27 +65,37 @@ Mbias3a vouta   vbiasn  vss     vss     nmos114         w='WB3'   l='LB3'
 ***	d	g	s	b	n/pmos114	w	l
 *Mcasc2a vya     vbiasp    vcsa    vss     nmos114         w='W2'    l='L2'
 *Mcasc2b vyb     vbiasp     vcsb    vss     nmos114         w='W2'    l='L2'
-Ra vya vcsa 0
-Rb vyb vcsb 0
+.connect vya vcsa
+.connect vyb vcsb
+
 * switch to pmos, then gs connect it
 *ML2a    vya     vya     vdd     vdd     pmos114         w='WL2'   l='LL2'
 *ML2b    vyb     vya     vdd     vdd     pmos114         w='WL2' l='LL2'
 *** nmos original
 ML2b    vdd     vdd     vyb     vss     nmos114         w='WL2' l='LL2'
 ML2a    vdd     vdd     vya     vss     nmos114         w='WL2'   l='LL2'
+** resistors. don't work because of biasing probs
+*RL2a    vdd   vya   28K
+*RL2b    vdd   vyb   28K
+
 ** Capacitor nulling
 *Mcapa2b vyb     vxa     vyb     vss     nmos114         w='W2/2'  l='L2'
 *Mcapb2a vya     vxb     vya     vss     nmos114          w='W2/2'  l='L2'
-Rda vdd vxa 50K
-Rdb vdd vxb 50K
+Rda vdd vxa 'RD'
+Rdb vdd vxb 'RD'
+.param RD = 60K
 
 *** Cascode-regulated NMOS decrease input impedance
-*Mb1a    vg1   vbiasp  vdd       vdd     pmos114         w='WL1'   l='LL1'
-*Mfb1a   vg1   iina    vss       vss     nmos114         w='W1'    l='L1'
+ML1a    vfa     vbiasp  vdd     vdd     pmos114         w='WL1'   l='LL1'
+Mfb1a   vfa   iina    vbiasn       vss     nmos114         w='W1'    l='L1'
+M1a     vxa     vfa       iina    vss     nmos114         w='W1' l='L1'
+ML1b    vfb     vbiasp  vdd     vdd     pmos114         w='WL1'   l='LL1'
+Mfb1b   vfb   iinb    vbiasn       vss     nmos114         w='W1'    l='L1'
+M1b     vxb     vfb       iinb    vss     nmos114         w='W1' l='L1'
 
 *** B Side ***
 *NAME D G S B MODEL WIDTH LENGTH
-M1b     vxb     0       iinb    vss     nmos114         w='W1' l='L1'
+*M1b     vxb     0       iinb    vss     nmos114         w='W1' l='L1'
 Mbias1b iinb    vbiasn  vss     vss     nmos114         w='WB1' l='LB1'
 *ML1b    vxb     vbiasp  vdd     vdd     pmos114         w='WL1' l='LL1'
 *ML2b    vdd     vdd     vyb     vss     nmos114         w='WL2' l='LL2'
@@ -100,9 +110,9 @@ Mbias3b voutb   vbiasn  vss     vss     nmos114         w='WB3' l='LB3'
 .param W1 = 5u
 .param L1 = 1u
 .param WB1 = 2u
-.param LB1 = 3u
-.param WL1 = 3u
-.param LL1 = 2u
+.param LB1 = 4u
+.param WL1 = 2u
+.param LL1 = 6u
 .param W2 = 3u
 .param L2 = 1u 
 .param WB2 = 2u
