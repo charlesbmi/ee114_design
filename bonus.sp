@@ -69,6 +69,7 @@ Mbias3a vouta   vbiasn  vss     vss     nmos114         w='WB3'   l='LB3'
 .connect vyb vcsb
 
 * switch to pmos, then gs connect it
+
 *ML2a    vya     vya     vdd     vdd     pmos114         w='WL2'   l='LL2'
 *ML2b    vyb     vya     vdd     vdd     pmos114         w='WL2' l='LL2'
 *** nmos original
@@ -92,6 +93,11 @@ M1a     vxa     vfa       iina    vss     nmos114         w='W1' l='L1'
 ML1b    vfb     vbiasp  vdd     vdd     pmos114         w='WL1'   l='LL1'
 Mfb1b   vfb   iinb    vbiasn       vss     nmos114         w='W1'    l='L1'
 M1b     vxb     vfb       iinb    vss     nmos114         w='W1' l='L1'
+
+*** Output feedback
+*MfbOuta vya   vouta   vz    vz nmos114 w='W2' l='L2'
+*MfbOutb vyb   voutb   vz    vz nmos114 w='W2' l='L2'
+
 
 *** B Side ***
 *NAME D G S B MODEL WIDTH LENGTH
@@ -122,7 +128,7 @@ Mbias3b voutb   vbiasn  vss     vss     nmos114         w='WB3' l='LB3'
 .param W3 = 26u
 .param L3 = 1u
 .param WB3 = 2u
-.param LB3 = 2u
+.param LB3 = 3u
 
 *** Current Bias ***
 
