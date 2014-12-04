@@ -6,22 +6,22 @@ clear all;
 % Sample variable values
 W1 = 5e-6;
 L1 = 1e-6;
-WB1 = 4e-6;
-LB1 = 2e-6;
-WL1 = 2e-6;
-LL1 = 1e-6;
-W2 = 4e-6;
+WB1 = 2e-6;
+LB1 = 3e-6;
+WL1 = 3e-6;
+LL1 = 2e-6;
+W2 = 3e-6;
 L2 = 1e-6;
 WB2 = 2e-6;
-LB2 = 5e-6;
-WL2 = 1e-6;
-LL2 = 1e-6;
-W3 = 20e-6;
+LB2 = 4e-6;
+WL2 = 2e-6;
+LL2 = 1.6e-6;
+W3 = 26e-6;
 L3 = 1e-6;
-WB3 = 10e-6;
-LB3 = 5e-6;
-RU = 33e3;
-RD = 33e3;
+WB3 = 4e-6;
+LB3 = 2e-6;
+RU = 90e3;
+RD = 90e3;
 
 % Other components
 Vdd = 2.5;

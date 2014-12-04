@@ -5,10 +5,10 @@
 **************************************************************
 * sunetids of team members = cguan2, vprasad2
 * The specifications that this script achieves are: 
-* Power  =  0.3824277 mW 
-* Gain   =  80.4110 kOhm
-* BandWidth = 84.5569 MHz
-* FOM = 17779 kOhm*MHz/mW
+* Power  =  0.161422 mW 
+* Gain   =  83.422 kOhm
+* BandWidth = 83.8974 MHz
+* FOM = 43357 kOhm*MHz/mW
 ***************************************************************
 
 ** Including the model file
