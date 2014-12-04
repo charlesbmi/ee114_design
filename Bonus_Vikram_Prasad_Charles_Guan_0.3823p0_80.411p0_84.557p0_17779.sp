@@ -77,27 +77,27 @@ M3b     vdd     vyb     voutb   vss     nmos114         w='W3' l='L3'
 Mbias3b voutb   vbiasn  vss     vss     nmos114         w='WB3' l='LB3'
 
 *** Variables ***
-.param W1 = 5u
+.param W1 = 2u
 .param L1 = 1u
 .param WB1 = 2u
-.param LB1 = 6u
+.param LB1 = 4u
 .param WL1 = 2u
-.param LL1 = 6u
+.param LL1 = 4u
 .param W2 = 3u
 .param L2 = 1u 
 .param WB2 = 2u
-.param LB2 = 6u
+.param LB2 = 3u
 .param WL2 = 2u
 .param LL2 = 1.6u
-.param W3 = 26u
+.param W3 = 9u
 .param L3 = 1u
 .param WB3 = 2u
-.param LB3 = 3u
-.param RD = 100K
+.param LB3 = 2u
+.param RD = 150K
 
 *** Bias Circuitry here ***
-vbiasn vbiasn 0 -1
-vbiasp vbiasp 0 1
+vbiasn vbiasn 0 -1.5
+vbiasp vbiasp 0 1.5
 
 * defining the analysis
 
