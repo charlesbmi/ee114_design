@@ -11,6 +11,6 @@ Achieved: 84Mhz, 83kOhm, 0.16mW Amplifier, FOM=GBW/Power=43450
 Contents  
 Final project specifications (pdf)  
 HSPICE Netlists (sp)  
-    *Final Design using Given Architecture  
-    *Final Design using Modified Architecture to improve Specifications  
+    - Final Design using Given Architecture  
+    - Final Design using Modified Architecture to improve Specifications  
 Final report (pdf) 
