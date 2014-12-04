@@ -4,7 +4,7 @@
 clear all;
 
 % Sample variable values
-W1 = 5e-6;
+WW1 = 5e-6;
 L1 = 1e-6;
 WB1 = 2e-6;
 LB1 = 3e-6;

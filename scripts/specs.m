@@ -1,4 +1,4 @@
-function [gain, bw, pwr, RU_RD] = specs(sizes);
+function [gain, bw, pwr, I3,govtout3,Av2,tau] = specs(sizes);
 % Charles Guan and Vikram Prasad
 % EE114 Design Project
 % Calculates the gain, bw, and power specs for a given sizing
@@ -146,5 +146,7 @@ zvtc = tau_in + tau_x + tau_y + tau_out;
 bw = 1/(2*pi*zvtc)/1e6 * 1.1; % ZVTC tends to underestimate
 gain = Av / 1e3; % in kOhm
 pwr = 1e3*(2*(Vdd-Vss)*(I1+I2+I3+IR)); % in mW
+govtout3 = Av3/tau_out;
+tau = tau_x+tau_y
 
 end
